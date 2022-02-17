@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${status}"></title>
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}">
+
+    <style>
+        .title{
+            font-size: 5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ui two column grid stackable grid loop">
+        <div class="column">
+            <img class="ui fluid image" th:src="@{/images/400.gif}">
+        </div>
+        <div class="middle aligned column wp-block-gsui-column">
+            <h1 th:text="${status}" class="title"></h1>
+            <h1>¡Uy! Veo que esa solicitud no es del todo legal.</h1>
+            <h3 th:text="${message}"></h3>
+            <h4>Te dare la oportunidad de volver al camino del bien</h4>
+                <a th:href="@{/}" class="ui teal circular basic button"> Volver a Inicio</a>
+        </div>
+    </div>
+    <script th:src="@{/js/semantic.min.js}"></script>
+</body>
+
+</html>

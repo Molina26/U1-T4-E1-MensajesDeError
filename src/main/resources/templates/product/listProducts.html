@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo productos</title>
+  <link rel="stylesheet" th:href="@{/css/semantic.min.css}">
+  <link rel="stylesheet" th:href="@{/css/productStyles.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui-icon@2.3.3/icon.min.css">
+
+</head>
+
+<body>
+  <br>
+  <br>
+  <div class="ui container">
+    <h1 class="ui grid centered">Óptica Visión</h1>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+    <div class="ui grid">
+      <!-- Inicio de menú -->
+      <div class="four wide column">
+        <!-- Inicio del menú -->
+        <div class="ui secondary vertical pointing menu">
+          <div class="row ">
+            <img alt="logo" th:src="@{/images/store.png}" class="ui centered tiny image" />
+          </div>
+          <div class="item" sec:authorize="isAuthenticated()">
+            <div class="header">Usuario : &nbsp;<span sec:authentication="name"></span></div>
+          </div>
+          <br>
+          <a class="item" th:href="@{/}">
+            <span><i class="big home icon"></i></span> Inicio
+          </a>
+          <a class="active item" th:href="@{/product}" sec:authorize="hasRole('ROLE_ADMIN')">
+            <span> <i class="big archive icon"></i> </span> Productos
+          </a>
+          <a class="item" sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="POST">
+              <button type="submit" class="ui inverted red button">
+                <span> <i class="big caret square left outline icon"></i> Cerrar Sesión
+              </button>
+            </form>
+          </a>
+        </div>
+
+        <!-- Final del menú -->
+
+      </div>
+      <!-- Fin de menú -->
+      <div class="twelve wide column">
+        <h2>Productos</h2>
+        <div>
+          <a th:href="@{/product/register}" class="ui button primary">
+            Agregar
+          </a>
+        </div>
+        <table class="ui celled padded table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="product, iter : ${listProducts}">
+              <td th:text="${iter.index + 1}">  </td>
+              <td>
+                <div class="ui star rating" th:text="${product.name}"></div>
+              </td>
+              <td class="center aligned" th:text="${product.description}">
+              </td>
+              <td>
+                <p th:text="'$'+${product.price}">Lentes de sol rosas para mujer</p>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot class="full-width">
+            <tr>
+              <th colspan="4">
+                <div class="right aligned ">
+                  <!-- Aquí puede ir el pagitation -->
+                </div>
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <!-- Fin de cambios -->
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script th:src="@{/js/semantic.min.js}"></script>
+</body>
+
+</html>

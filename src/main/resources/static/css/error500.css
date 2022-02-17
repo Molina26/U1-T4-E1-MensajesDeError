@@ -1,0 +1,25 @@
+#error500{
+    text-align: center;
+    font-size: 70px;
+    font: bold; 
+}
+p{
+    font-size: 20px;
+}
+
+#btnRegresar{
+    width: 120px; 
+    height:45px; 
+    font-size: 15px;
+    border-radius: 20px;
+}
+#textInfo{
+    float: left; 
+    padding-top: 50px;
+    margin-left: 70px;
+    text-align: center;
+}
+
+#imgError{
+    float: left;
+}

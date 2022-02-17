@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Óptica Visión</title>
+  <link rel="stylesheet" th:href="@{/css/semantic.min.css}">
+  <link rel="stylesheet" th:href="@{/css/custom.css}">
+  <link rel="stylesheet" th:href="@{/simple-notify/dist/simple-notify.min.css}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui-icon@2.3.3/icon.min.css">
+
+</head>
+
+<body>
+  <input type="hidden" th:value="${title}" id="title">
+  <input type="hidden" th:value="${info}" id="info">
+  <input type="hidden" th:value="${typeAlert}" id="typeAlert">
+  <br>
+  <br>
+  <div class="ui container">
+    <h1 class="ui grid centered">
+      Óptica Visión
+    </h1>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <div class="ui grid">
+      <!-- Inicio de menú -->
+      <div class="four wide column">
+        <div class="ui secondary vertical pointing menu">
+          <div class="row ">
+            <img alt="logo" th:src="@{/images/store.png}" class="ui centered tiny image" />
+          </div>
+          <a class="item" th:href="@{/}">
+            <span><i class="big home icon"></i></span> Inicio
+          </a>
+          <a class="active item" th:href="@{/login}" sec:authorize="!isAuthenticated()">
+            <span> <i class="big user icon"></i> </span> Iniciar Sesión
+          </a>
+          <a class="item" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">
+            <span> <i class="big user plus icon"></i> </span> Crear Cuenta
+          </a>
+        </div>
+
+      </div>
+      <!-- Fin de menú -->
+      <!-- Inicio de formulario -->
+      <div class="ten wide column">
+
+        <form th:action="@{/login}" method="POST">
+          <div class="ui centered card" style="width: 430px;">
+            <div class="content">
+              <div class="header">Iniciar Sesión</div>
+            </div>
+            <div class="content ui form">
+              <div class="field">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" name="username" id="username" autofocus placeholder="Nombre de usuario">
+              </div>
+              <div class="field">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" placeholder="Contraseña">
+              </div>
+            </div>
+            <div class=" ui grid centered extra content">
+              <button type="submit" class="ui button large teal">Iniciar</input>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Fin de formulario -->
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script th:src="@{/js/semantic.min.js}"></script>
+  <script th:src="@{/js/showToast.js}"></script>
+  <script th:src="@{/simple-notify/dist/simple-notify.min.js}"></script>
+  <script>
+
+    const validateProperties = () => {
+      const inputTitle = document.getElementById("title");
+      const inputInfo = document.getElementById("info");
+      const inputTypeAlert = document.getElementById("typeAlert");
+
+      if (inputTitle.value.length > 0 && inputInfo.value.length > 0 && inputTypeAlert.value.length > 0) {
+        let time = 5000;
+
+        showToast(inputTitle.value, inputInfo.value, inputTypeAlert.value, time);
+      }
+
+    };
+
+    window.load = validateProperties();
+
+
+  </script>
+</body>
+
+</html>

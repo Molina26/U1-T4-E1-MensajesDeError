@@ -1,0 +1,47 @@
+.image{
+  align-self: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.menu{
+  background-color: aquamarine;
+}
+
+.title{
+  text-align: center;
+  color: black;
+}
+
+#contacts{
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+}
+
+#contacts h5{
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.containerPage{
+  display: flex;
+  flex-direction: row; 
+}
+
+.menuDiv{
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+}
+
+.tabla{
+  display: flex;
+  flex-direction: column;
+  flex: 10;
+  margin-left: 20px;
+  margin-right: 20px;
+}

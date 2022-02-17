@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Producto</title>
+  <link rel="stylesheet" th:href="@{/css/semantic.min.css}">
+  <link rel="stylesheet" th:href="@{/css/productStyles.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui-icon@2.3.3/icon.min.css">
+
+</head>
+
+<body>
+  <br>
+  <br>
+  <div class="ui container">
+    <h1 class="ui grid centered">Óptica Visión</h1>
+    <br>
+    <hr>
+    <br>
+    <br>
+
+    <div class="ui grid">
+      <!-- Inicio de menú -->
+      <div class="four wide column">
+        <!-- Inicio del menú -->
+        <div class="ui secondary vertical pointing menu">
+          <div class="row ">
+            <img alt="logo" th:src="@{/images/store.png}" class="ui centered tiny image" />
+          </div>
+          <div class="item" sec:authorize="isAuthenticated()">
+            <div class="header">Usuario : &nbsp;<span sec:authentication="name"></span></div>
+          </div>
+          <br>
+          <a class="item" th:href="@{/}">
+            <span><i class="big home icon"></i></span> Inicio
+          </a>
+          <a class="active item" th:href="@{/product}" sec:authorize="hasRole('ROLE_ADMIN')">
+            <span> <i class="big archive icon"></i> </span> Productos
+          </a>
+          <a class="item" sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="POST">
+              <button type="submit" class="ui inverted red button">
+                <span> <i class="big caret square left outline icon"></i> Cerrar Sesión
+              </button>
+            </form>
+          </a>
+        </div>
+
+        <!-- Final del menú -->
+
+      </div>
+      <!-- Fin de menú -->
+      <div class="twelve wide column">
+        <div class="ui centered card" style="width: 500px;">
+          <div class="content">
+            <div class="header">Detalle de producto</div>
+          </div>
+          <div class="content ui form">
+            <div class="field">
+              <label for="folio">Folio del producto</label>
+              <p th:text="${folio}">
+              </p>
+            </div>
+            <div class="field">
+              <label for="name">Nombre del producto</label>
+              <p th:text="${name}">
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="price">Precio del producto</label>
+              <p th:text="${precio}">
+              </p>
+            </div>
+            <div class="field">
+              <label for="description">Descripción del producto</label>
+              <p th:text="${description}">
+              </p>
+            </div>
+            <div class="field">
+              <label for="isActive">Estado</label>
+              <p th:text="${isActive} ? 'Activo' : 'Inactivo'">
+              </p>
+            </div>
+
+
+          </div>
+          <div class=" ui grid centered extra content">
+            <a th:href="@{/}" class="ui button large purple">Regresar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fin de cambios -->
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script th:src="@{/js/semantic.min.js}"></script>
+</body>
+
+</html>

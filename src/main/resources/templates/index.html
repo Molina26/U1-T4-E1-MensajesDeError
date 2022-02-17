@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Óptica Visión</title>
+  <link rel="stylesheet" th:href="@{/css/semantic.min.css}">
+  <link rel="stylesheet" th:href="@{/css/custom.css}">
+  <link rel="stylesheet" th:href="@{/simple-notify/dist/simple-notify.min.css}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui-icon@2.3.3/icon.min.css">
+</head>
+
+<body>
+  <input type="hidden" th:value="${title}" id="title">
+  <input type="hidden" th:value="${info}" id="info">
+  <input type="hidden" th:value="${typeAlert}" id="typeAlert">
+  <br>
+  <br>
+  <div class="ui container">
+    <h1 class="ui grid centered">
+      Óptica Visión
+    </h1>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <div class="ui grid">
+      <!-- Inicio de menú -->
+      <div class="four wide column">
+        <div class="ui secondary vertical pointing menu">
+          <div class="row ">
+            <img alt="logo" th:src="@{/images/store.png}" class="ui centered tiny image" />
+          </div>
+          <div class="item" sec:authorize="isAuthenticated()">
+            <div class="header">Usuario : &nbsp;<span sec:authentication="name"></span></div>
+          </div>
+          <a class="active item" th:href="@{/}">
+            <span><i class="big home icon"></i></span> Inicio
+          </a>
+          <a class="item" th:href="@{/product}" sec:authorize="hasRole('ROLE_ADMIN')">
+            <span> <i class="big archive icon"></i> </span> Productos
+          </a>
+          <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()">
+            <span> <i class="big user icon"></i> </span> Iniciar Sesión
+          </a>
+          <a class="item" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">
+            <span> <i class="big user plus icon"></i> </span> Crear Cuenta
+          </a>
+          <a class="item" sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="POST">
+              <button type="submit" class="ui inverted red button">
+                <span> <i class="big caret square left outline icon"></i> Cerrar Sesión
+              </button>
+            </form>
+          </a>
+        </div>
+
+      </div>
+      <!-- Fin de menú -->
+      <div class="twelve wide column">
+        <div sec:authorize="!hasRole('ROLE_ADMIN')">
+          <h3>Productos</h3>
+          <br>
+          <div class="ui grid">
+            <div class="three column row">
+              <div class="column" th:each="product : ${listProducts}">
+                <div class="ui card">
+                  <div class="content">
+                    <div class="center aligned header">
+                      [[ ${product.name} ]]
+                    </div>
+                    <div class="center aligned description">
+                      <p>
+                        [[ ${product.description} ]]
+                      </p>
+                      <p>
+                        $ [[ ${product.price} ]]
+                      </p>
+                    </div>
+                  </div>
+                  <div class="extra content">
+                    <div class="center aligned author" sec:authorize="hasRole('ROLE_CLIENT')">
+                      <a th:href="@{/product/specific/{id}(id = ${product.id})}" class="ui button orange">Detalle</a>
+                    </div>
+                  </div>
+                </div>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div sec:authorize="hasRole('ROLE_ADMIN')" class="ui grid centered column">
+          <div class="row">
+            <img alt="logo" th:src="@{/images/work.svg}" class="ui centered medium image" />
+          </div>
+          <h2>Sistema de Administración de Productos de Óptica</h2>
+          <br>
+          <h4 >
+            Gestiona el inventario que mostrarás a tus clientes cuando visiten tu plataforma
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script th:src="@{/js/semantic.min.js}"></script>
+  <script th:src="@{/js/showToast.js}"></script>
+  <script th:src="@{/simple-notify/dist/simple-notify.min.js}"></script>
+  <script>
+
+    const validateProperties = () => {
+      const inputTitle = document.getElementById("title");
+      const inputInfo = document.getElementById("info");
+      const inputTypeAlert = document.getElementById("typeAlert");
+
+      if (inputTitle.value.length > 0 && inputInfo.value.length > 0 && inputTypeAlert.value.length > 0) {
+        let time = 6000;
+
+        showToast(inputTitle.value, inputInfo.value, inputTypeAlert.value, time);
+      }
+
+    };
+
+    window.load = validateProperties();
+
+
+  </script>
+</body>
+
+</html>
